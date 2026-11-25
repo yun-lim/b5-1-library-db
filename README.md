@@ -68,3 +68,7 @@ Q03과 Q13은 기준일을 **2026-10-04**로 고정해 실행한다. 따라서 �
 ## 검증 결과
 
 새 DB에서 세 스크립트를 순서대로 실행해 결과를 저장했다. `PRAGMA integrity_check;` 결과는 `ok`, `PRAGMA foreign_key_check;` 결과는 위반 행 없이 비어 있었다. 쿼리 실행 후 행 수는 member 12, category 10, book 12, rental 15다. 이 검사는 데이터가 무결성 규칙을 만족함을 확인한다.
+
+## 참고 (Disclaimer)
+
+> SQLite는 타입이 유연해서 INTEGER 칸에 문자가 들어갈 수 있습니다. 엄격하게 하려면 `CHECK (typeof(daily_fee) = 'integer')`를 추가하거나 `STRICT` 테이블을 쓰면 됩니다.
