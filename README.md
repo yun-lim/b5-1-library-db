@@ -10,6 +10,7 @@ SQLite로 회원, 소장 도서, 카테고리, 대여 기록을 관리하는 SQL
 | [insert.sql](insert.sql) | 실행 재현용 샘플 데이터 입력 |
 | [queries.sql](queries.sql) | Q01~Q15 조회·수정·삭제·인덱스 SQL |
 | [results/results.txt](results/results.txt) | 쿼리 실행 결과 |
+| [demo.sql](demo.sql) | 평가 시연용 모음(제약조건 차단, JOIN 비교, 집계 검산, 실행 계획). 메모리 DB에서 실행하며 변경은 모두 ROLLBACK |
 
 ## 실행 및 결과 재현
 
