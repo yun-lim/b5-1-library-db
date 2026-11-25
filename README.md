@@ -42,6 +42,47 @@ diff -u results/results.txt "$run_dir/results.txt"
 | book | 소장 도서 ID, 등록번호, 제목, 저자, 카테고리 ID, 일일 대여료 | 12 |
 | rental | 대여 ID, 회원 ID, 도서 ID, 대여일, 반납 기한, 실제 반납일, 상태, 약정 대여료 | 16 |
 
+### ERD
+
+```mermaid
+erDiagram
+    member ||--o{ rental : "빌린다"
+    book ||--o{ rental : "대여된다"
+    category ||--o{ book : "분류한다"
+
+    member {
+        INTEGER id PK
+        TEXT name "NOT NULL"
+        TEXT email UK "NOT NULL"
+        TEXT joined_on "YYYY-MM-DD"
+    }
+    category {
+        INTEGER id PK
+        TEXT name UK "NOT NULL"
+        TEXT description "NOT NULL"
+    }
+    book {
+        INTEGER id PK
+        TEXT inventory_code UK "등록번호"
+        TEXT title "NOT NULL"
+        TEXT author "NOT NULL"
+        INTEGER category_id FK "→ category.id"
+        INTEGER daily_fee "원, >= 0"
+    }
+    rental {
+        INTEGER id PK
+        INTEGER member_id FK "→ member.id"
+        INTEGER book_id FK "→ book.id"
+        TEXT rented_on "YYYY-MM-DD"
+        TEXT due_on ">= rented_on"
+        TEXT returned_on "NULL = 미반납"
+        TEXT status "대여중/반납완료/연체"
+        INTEGER rental_fee "원, >= 0"
+    }
+```
+
+`||--o{` 는 1:N(한쪽 1개, 다른 쪽 0개 이상)을 뜻한다. 예: 회원 1명은 대여 기록을 0건 이상 가지며, 대여 기록 1건은 반드시 회원 1명에 속한다.
+
 `schema.sql`에는 `category → book`, `member → rental`, `book → rental` 1:N 외래 키 관계가 정의되어 있다. `book`은 대여 가능한 소장본을, `rental`은 회원이 소장본을 빌린 기록을 나타낸다.
 
 ## 쿼리 목록과 결과
